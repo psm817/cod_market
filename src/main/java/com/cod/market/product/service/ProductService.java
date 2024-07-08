@@ -5,6 +5,7 @@ import com.cod.market.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -14,5 +15,13 @@ public class ProductService {
 
     public List<Product> getList() {
         return productRepository.findAll();
+    }
+
+    public void create(String name, int price) {
+        Product p = new Product();
+        p.setName(name);
+        p.setPrice(price);
+        p.setCreateDate(LocalDateTime.now());
+        productRepository.save(p);
     }
 }

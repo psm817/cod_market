@@ -21,7 +21,7 @@ public class Product {
     private Long id;
 
     private String name;
-    private String price;
+    private int price;
 
     @CreatedDate
     private LocalDateTime createDate;
