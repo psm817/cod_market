@@ -2,7 +2,7 @@
 <html layout:decorate="~{/layout/layout}">
 <section layout:fragment="content" class="section-prod-list">
     <div class="container">
-        <div class="card">
+        <div class="card-header">
             상품 상세정보
         </div>
         <ul class="list-group list-group-flush gap-2 ml-3">
@@ -11,7 +11,7 @@
             </li>
             <li class="list-group-item">
                 <span>번호 : </span>
-                <span class="badge bg-primary">123</span>
+                <span class="badge bg-primary" th:text="${product.id}"></span>
             </li>
             <li class="list-group-item">
                 <span>등록날짜 : </span>
@@ -27,13 +27,37 @@
             </li>
             <li class="list-group-item">
                 <span>가격 : </span>
-                <span>100원</span>
+                <span th:text="${product.price} + '원'"></span>
             </li>
             <li class="list-group-item">
                 <span>마켓 : </span>
                 <span class="badge bg-primary">cod</span>
             </li>
         </ul>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                질문 등록
+            </div>
+            <div class="card-body">
+                <form action="#" method="POST">
+                    폼 내용
+                </form>
+                <a href="#">로그인</a> 후 이용해주세요.
+            </div>
+        </div>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                질문 리스트
+            </div>
+            <ul class="list-group list-group-flush gap-2 ml-3">
+                <li class="list-group-item">
+                    <span class="badge bg-secondary">질문 ID</span>
+                    <span>질문 질문내용</span>
+                    <a href="#" class="btn btn-sm btn-info">수정</a>
+                    <a href="#" class="btn btn-sm btn-warning" onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>
 </html>
