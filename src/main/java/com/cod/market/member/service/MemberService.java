@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +26,15 @@ public class MemberService {
         memberRepository.save(member);
 
         return member;
+    }
+
+    public Member findByUsername(String name) {
+        Optional<Member> member = memberRepository.findByUsername(name);
+
+        if(member.isPresent()) {
+            return member.get();
+        } else {
+            throw new RuntimeException("member net found");
+        }
     }
 }
