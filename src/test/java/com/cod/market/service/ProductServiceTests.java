@@ -1,5 +1,6 @@
 package com.cod.market.service;
 
+import com.cod.market.member.service.MemberService;
 import com.cod.market.product.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,5 +20,19 @@ public class ProductServiceTests {
             int price = 100;
             productService.create(name, price);
         }
+    }
+
+    @Autowired
+    private MemberService memberService;
+
+    @Test
+    @DisplayName("회원가입")
+    void t1() {
+        String username = "user1";
+        String password = "user1";
+        String email = "user1@test.com";
+        String nickname = "user1";
+
+        memberService.join(username, password, email, nickname);
     }
 }
