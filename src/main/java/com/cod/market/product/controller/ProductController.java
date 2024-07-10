@@ -32,10 +32,8 @@ public class ProductController {
     @GetMapping("/detail/{id}")
     public String list(Model model, @PathVariable("id") Long id) {
         Product product = productService.getProduct(id);
-        List<Question> questionList = questionService.getQuestion();
 
         model.addAttribute("product", product);
-        model.addAttribute("questionList", questionList);
 
         return "product/detail";
     }
