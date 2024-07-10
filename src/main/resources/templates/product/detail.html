@@ -14,20 +14,18 @@
                 <span class="badge bg-primary" th:text="${product.id}"></span>
             </li>
             <li class="list-group-item">
-                <span>등록날짜 : </span>
-                <span>2024-07-08</span>
+                <span th:text="'등록날짜 : ' + ${#temporals.format(product.createDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
             </li>
-            <li class="list-group-item">
-                <span>수정날짜 : </span>
-                <span>2024-07-08</span>
+            <li class="list-group-item" th:if="${product.modifyDate} != null">
+                <span th:text="'수정날짜 : ' + ${#temporals.format(product.modifyDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
             </li>
             <li class="list-group-item">
                 <span>상품명 : </span>
-                <span class="font-bold">명강의</span>
+                <span class="font-bold" th:text="${product.name}"></span>
             </li>
             <li class="list-group-item">
                 <span>가격 : </span>
-                <span th:text="${product.price} + '원'"></span>
+                <span th:text="${product.price}"></span>원
             </li>
             <li class="list-group-item">
                 <span>마켓 : </span>

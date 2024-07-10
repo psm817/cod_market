@@ -28,6 +28,7 @@ public class ProductService {
 
     public Product getProduct(Long id) {
         Optional<Product> product = this.productRepository.findById(id);
+        // TODO: 없을 경우 예외처리 예정
 
         return product.get();
     }
