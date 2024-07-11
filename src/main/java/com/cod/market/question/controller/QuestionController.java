@@ -8,10 +8,8 @@ import com.cod.market.question.entity.Question;
 import com.cod.market.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -30,5 +28,23 @@ public class QuestionController {
         this.questionService.create(content, member, product);
 
         return "redirect:/product/detail/%s".formatted(id);
+    }
+
+    @GetMapping("/modify/{id}")
+    public String modify(@PathVariable("id") Long id, Model model) {
+        Question question = questionService.getQuestion(id);
+
+        model.addAttribute("question", question);
+
+        return "question/modify";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modify(Principal principal, @PathVariable("id") Long id, @RequestParam("content") String content) {
+        Question question = questionService.getQuestion(id);
+        questionService.modify(question, content);
+        long productId = question.getProduct().getId();
+
+        return "redirect:/product/detail/%s".formatted(productId);
     }
 }

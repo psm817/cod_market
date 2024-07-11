@@ -2,7 +2,6 @@ package com.cod.market.product.controller;
 
 import com.cod.market.product.entity.Product;
 import com.cod.market.product.service.ProductService;
-import com.cod.market.question.entity.Question;
 import com.cod.market.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
