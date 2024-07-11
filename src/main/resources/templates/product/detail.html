@@ -60,9 +60,14 @@
             <ul class="list-group list-group-flush gap-2 ml-3">
                 <li th:each="question, loop : ${product.questionList}" class="list-group-item">
                     <span class="badge bg-secondary" th:text="${question.id}"></span>
-                    <span th:text="${question.content}"></span>
-                    <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-info">수정</a>
-                    <a th:href="@{|/question/delete/${question.id}|}" class="btn btn-sm btn-warning" onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+                    <span class="ml-2" th:text="'[작성자 : ' + ${question.member.username} + ']'"></span>
+                    <span class="ml-2" th:text="${question.content}"></span>
+                    <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-info ml-2"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.username}">수정</a>
+                    <a th:href="@{|/question/delete/${question.id}|}" class="btn btn-sm btn-warning"
+                       onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;" sec:authorize="isAuthenticated()"
+                       th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.username}">삭제</a>
                 </li>
             </ul>
             <script>
