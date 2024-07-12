@@ -36,6 +36,16 @@
         </div>
         <div class="card mt-[30px]">
             <div class="card-header">
+                장바구니 담기
+            </div>
+            <div class="card-body">
+                <form th:action="@{|/cart/add/${product.id}|}" method="POST">
+                    <input type="submit" value="장바구니 담기" class="btn btn-outline-dark">
+                </form>
+            </div>
+        </div>
+        <div class="card mt-[30px]">
+            <div class="card-header">
                 질문 등록
             </div>
             <div class="card-body">
@@ -57,7 +67,7 @@
             <div class="card-header">
                 질문 리스트
             </div>
-            <ul class="list-group list-group-flush gap-2 ml-3">
+            <ul th:if="${#lists.size(product.questionList) > 0}" class="list-group list-group-flush gap-2 ml-3 card-body">
                 <li th:each="question, loop : ${product.questionList}" class="list-group-item">
                     <span class="badge bg-secondary" th:text="${question.id}"></span>
                     <span class="ml-2" th:text="'[작성자 : ' + ${question.member.username} + ']'"></span>
@@ -69,6 +79,11 @@
                        onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;" sec:authorize="isAuthenticated()"
                        th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.username}">삭제</a>
                 </li>
+            </ul>
+            <ul th:unless="${#lists.size(product.questionList) > 0}" class="card-body">
+                <div>
+                    질문이 아직 없습니다.
+                </div>
             </ul>
             <script>
                 $(document).ready(function() {
