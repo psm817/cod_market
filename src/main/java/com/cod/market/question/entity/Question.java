@@ -5,12 +5,18 @@ import com.cod.market.member.entity.Member;
 import com.cod.market.product.entity.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
+@SuperBuilder(toBuilder = true)     // 수정할 떄 toBuilder 쓰려면 작성해야됨
+@AllArgsConstructor
+@NoArgsConstructor
 public class Question extends BaseEntity {
     private String content;
 

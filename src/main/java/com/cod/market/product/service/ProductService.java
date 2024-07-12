@@ -28,17 +28,18 @@ public class ProductService {
     }
 
     public void create(String name, int price) {
-        Product p = new Product();
-        p.setName(name);
-        p.setPrice(price);
-        p.setCreateDate(LocalDateTime.now());
+        Product p = Product.builder()
+                .name(name)
+                .price(price)
+                .build();
+
         productRepository.save(p);
     }
 
     public Product getProduct(Long id) {
         Optional<Product> product = this.productRepository.findById(id);
 
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             return product.get();
         } else {
             throw new RuntimeException("product not found");

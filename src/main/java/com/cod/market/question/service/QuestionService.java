@@ -16,18 +16,19 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     public void create(String content, Member member, Product product) {
-        Question q = new Question();
-        q.setCreateDate(LocalDateTime.now());
-        q.setContent(content);
-        q.setMember(member);
-        q.setProduct(product);
+        Question q = Question.builder()
+                .content(content)
+                .member(member)
+                .product(product)
+                .build();
+
         questionRepository.save(q);
     }
 
     public Question getQuestion(Long id) {
         Optional<Question> question = questionRepository.findById(id);
 
-        if(question.isPresent()) {
+        if (question.isPresent()) {
             return question.get();
         } else {
             throw new RuntimeException("question not found");
@@ -35,8 +36,9 @@ public class QuestionService {
     }
 
     public void modify(Question question, String content) {
-        question.setContent(content);
-        question.setModifyDate(LocalDateTime.now());
+        Question modifyQuestion = question.toBuilder()
+                .content(content)
+                .build();
 
         questionRepository.save(question);
     }
