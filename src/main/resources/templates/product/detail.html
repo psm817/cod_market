@@ -8,7 +8,7 @@
             </div>
             <ul class="list-group list-group-flush gap-2 ml-3">
                 <li class="list-group-item">
-                    <img class="w-full max-w-[300px]" src="https://i.imgur.com/PVsCFy1.png" alt="상품이미지">
+                    <img class="w-full max-w-[300px]" th:src="@{|/gen/${product.thumbnailImg}|}" alt="상품이미지">
                 </li>
                 <li class="list-group-item">
                     <span>번호 : </span>
@@ -25,8 +25,12 @@
                     <span class="font-bold" th:text="${product.name}"></span>
                 </li>
                 <li class="list-group-item">
-                    <span>가격 : </span>
-                    <span th:text="${product.price}"></span>원
+                    <span>상품명 : </span>
+                    <span class="font-bold" th:text="${product.name}"></span>
+                </li>
+                <li class="list-group-item">
+                    <span>상품설명 : </span>
+                    <span th:text="${product.description}"></span>
                 </li>
                 <li class="list-group-item">
                     <span>마켓 : </span>
