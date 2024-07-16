@@ -19,11 +19,11 @@
                         <td><input type="checkbox" class="form-check-input"></td>
                         <td>
                             <a th:href="@{|/product/detail/${cartItem.product.id}|}">
-                                <img class="w-[50px] h-[50px] sm:w-[100px] sm:h-[100px] object-cover" src="https://i.imgur.com/PVsCFy1.png" alt="상품이미지">
+                                <img class="w-[50px] h-[50px] sm:w-[100px] sm:h-[100px] object-cover" th:src="@{|/gen/cartItem.product.thumbnailImg|}" alt="상품이미지">
                             </a>
                         </td>
                         <td th:text="${cartItem.product.title}"></td>
-                        <td th:text="${cartItem.product.price}"></td>
+                        <td th:text="${#numbers.formatDecimal(cartItem.product.price, 1, 'COMMA', 0, 'POINT')}+원"></td>
                         <td>
                             <a href="#" type="button" class="btn btn-link">구매</a>
                             <a href="#" type="button" class="btn btn-link">삭제</a>
