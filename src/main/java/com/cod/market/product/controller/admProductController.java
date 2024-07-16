@@ -29,12 +29,12 @@ public class admProductController {
     }
 
     @PostMapping("/create")
-    public String createContent(@RequestParam(value = "name", defaultValue = "") String name,
+    public String createContent(@RequestParam(value = "title", defaultValue = "") String title,
                                 @RequestParam(value = "price", defaultValue = "0") int price,
                                 @RequestParam(value = "description", defaultValue = "") String description,
                                 @RequestParam(value = "thumbnail", defaultValue = "") MultipartFile thumbnail)
     {
-        productService.create(name, description, price, thumbnail);
+        productService.create(title, description, price, thumbnail);
 
         return "adm/product/create";
     }

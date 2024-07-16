@@ -36,9 +36,11 @@ public class QuestionService {
     }
 
     public void modify(Question question, String content) {
-        Question modifyQuestion = question.toBuilder()
-                .content(content)
-                .build();
+        question.setModifyDate(LocalDateTime.now());
+        question.setContent(content);
+//        Question modifyQuestion = question.toBuilder()
+//                .content(content)
+//                .build();
 
         questionRepository.save(question);
     }
