@@ -1,7 +1,76 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/layout/layout}">
 <section layout:fragment="content" class="flex-1 flex justify-center items-center">
-    <h1 class="text-[20px] font-bold">수강신청 상세페이지</h1>
-    <h1>수강 내역</h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>수강신청 상세페이지</h1>
+            </div>
+            <ul class="list-group list-group-flush gap-2 ml-3">
+                <li class="list-group-item">
+                    <img class="w-full max-w-[300px]" th:src="@{|/gen/${product.thumbnailImg}|}" alt="상품이미지">
+                </li>
+                <li class="list-group-item">
+                    <span>번호 : </span>
+                    <span class="badge bg-primary" th:text="${product.id}"></span>
+                </li>
+                <li class="list-group-item">
+                    <span>상품명 : </span>
+                    <span class="font-bold" th:text="${product.title}"></span>
+                </li>
+                <li class="list-group-item">
+                    <span>가격 : </span>
+                    <span th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 0, 'POINT')}+원"></span>
+                </li>
+            </ul>
+        </div>
+        <button onclick="pay();" class="btn btn-outline-dark mt-[10px] px-[20px]">결제하기</button>
+    </div>
+    <script src="https://js.tosspayments.com/v1"></script>
+    <script th:inline="javascript">
+        let amount = /*[[ ${product.price} ]]*/;
+        let orderName = /*[[ ${product.title} ]]*/;
+        let tossPayments = TossPayments("test_ck_oEjb0gm23PNbdeJEaNMvrpGwBJn5"); // 테스트 클라이언트 키
+
+        let path = "/order/";
+        let successUrl = window.location.origin + path + "success";
+        let failUrl = window.location.origin + path + "fail";
+        let callbackUrl = window.location.origin + path + "va_callback";
+        let orderId = new Date().getTime();
+
+        function pay() {
+            const method = "카드";
+            const requestJson = {
+                amount: amount,
+                orderId: "sample-" + orderId,
+                orderName: orderName,
+                successUrl: successUrl,
+                failUrl: failUrl,
+                cardCompany: null,
+                cardInstallmentPlan: null,
+                maxCardInstallmentPlan: null,
+                useCardPoint: false,
+                customerName: "박토스",
+                customerEmail: null,
+                customerMobilePhone: null,
+                taxFreeAmount: null,
+                useInternationalCardOnly: false,
+                flowMode: "DEFAULT",
+                discountCode: null,
+                appScheme: null,
+            }
+
+            console.log(requestJson);
+            tossPayments.requestPayment(method, requestJson).catch(function (error) {
+                if (error.code === "USER_CANCEL") {
+                    alert("결제가 취소되었습니다.");
+                } else {
+                    alert(error.message);
+                }
+            });
+
+            tossPayments.requestPayment(method, requestJson)
+        }
+    </script>
 </section>
 </html>

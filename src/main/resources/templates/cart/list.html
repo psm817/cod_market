@@ -25,7 +25,7 @@
                         <td th:text="${cartItem.product.title}"></td>
                         <td th:text="${#numbers.formatDecimal(cartItem.product.price, 1, 'COMMA', 0, 'POINT')}+원"></td>
                         <td>
-                            <a href="#" type="button" class="btn btn-link">구매</a>
+                            <button onclick="pay();" class="btn btn-link">결제하기</button>
                             <a href="#" type="button" class="btn btn-link">삭제</a>
                         </td>
                     </tr>
