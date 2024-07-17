@@ -25,7 +25,9 @@
                         <td th:text="${cartItem.product.title}"></td>
                         <td th:text="${#numbers.formatDecimal(cartItem.product.price, 1, 'COMMA', 0, 'POINT')}+원"></td>
                         <td>
-                            <button onclick="pay();" class="btn btn-link">결제하기</button>
+                            <a href="#"
+                               th:attr="onclick=|pay('${cartItem.product.title}', ${cartItem.product.price})|"
+                               class="btn btn-link">구매</a>
                             <a href="#" type="button" class="btn btn-link">삭제</a>
                         </td>
                     </tr>
@@ -33,5 +35,51 @@
             </table>
         </div>
     </div>
+    <script src="https://js.tosspayments.com/v1"></script>
+    <script th:inline="javascript">
+        let tossPayments = TossPayments("test_ck_oEjb0gm23PNbdeJEaNMvrpGwBJn5"); // 테스트 클라이언트 키
+
+        let path = "/order/";
+        let successUrl = window.location.origin + path + "success";
+        let failUrl = window.location.origin + path + "fail";
+        let callbackUrl = window.location.origin + path + "va_callback";
+        let orderId = new Date().getTime();
+
+        function pay(title, price) {
+        console.log("title" + title);
+        console.log("price" + price);
+            const method = "카드";
+            const requestJson = {
+                amount: price,
+                orderId: "sample-" + orderId,
+                orderName: title,
+                successUrl: successUrl,
+                failUrl: failUrl,
+                cardCompany: null,
+                cardInstallmentPlan: null,
+                maxCardInstallmentPlan: null,
+                useCardPoint: false,
+                customerName: "박토스",
+                customerEmail: null,
+                customerMobilePhone: null,
+                taxFreeAmount: null,
+                useInternationalCardOnly: false,
+                flowMode: "DEFAULT",
+                discountCode: null,
+                appScheme: null,
+            }
+
+            console.log(requestJson);
+            tossPayments.requestPayment(method, requestJson).catch(function (error) {
+                if (error.code === "USER_CANCEL") {
+                    alert("결제가 취소되었습니다.");
+                } else {
+                    alert(error.message);
+                }
+            });
+
+            tossPayments.requestPayment(method, requestJson)
+        }
+    </script>
 </section>
 </html>
